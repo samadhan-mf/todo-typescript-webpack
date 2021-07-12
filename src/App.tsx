@@ -1,48 +1,39 @@
-import React,{FC,ChangeEvent,useState} from 'react';
+import React,{FC,ChangeEvent,useState,useEffect} from 'react';
 import {ITask} from './interfaces'; 
 import './App.css';
 import TodoTask from './Components/TodoTask';
+import TodoMain from './Components/TodoMain';
+import Rxjsdemo from './Components/DemoRxjs';
+import ApiRxjs from './Components/ApiRxjs';
+import Home from './Components/Routing/Home';
+import { Switch, Route ,BrowserRouter, useHistory} from "react-router-dom";
+
 
 const App:FC = () => {
+  let history = useHistory();
 
-  const [task, setTask] = useState<string>("")
-  const [deadline, setDeadline] = useState<number>(0)
-  const [todo, setTodo] = useState<ITask[]>([])
-
-const handleChange = (event: ChangeEvent<HTMLInputElement>) =>{
-  if(event.target.name === "task"){
-    setTask(event.target.value);
-  }else{
-    setDeadline(Number(event.target.value));
+  const showDemoTodo = () :void =>{
+    history.push('/TodoMain')
   }
+const showDemoRxjs = () :void =>{
+  history.push('/Rxjsdemo')
 }
-
-const addTask = () :void =>{
-const newTask = {task:task,deadline:deadline}
-setTodo([...todo, newTask]);
-}
-
-const completedTask = (taskNameTodelete:string):void =>{
-setTodo(todo.filter((task) => {
-  return task.task != taskNameTodelete
-}))
+const showDemoApi = () :void =>{
+  history.push('/ApiRxjs')
 }
 
   return (
+      <BrowserRouter >
     <div className="App">
-  <div className="header">
-    <div className="inputContainer">
-      <input type="text" placeholder="todo" value={task} name="task" onChange={handleChange} />
-      <input type="number" placeholder="number" name="deadline" value={deadline} onChange={handleChange} />
+      <Home />
+      <Switch>
+        <Route exact path='/' component={TodoMain}></Route>
+        <Route exact path='/TodoMain' component={TodoMain}></Route>
+        <Route exact path='/Rxjsdemo' component={Rxjsdemo}></Route>
+        <Route exact path='/ApiRxjs' component={ApiRxjs}></Route>
+      </Switch>
     </div>
-    <button onClick={addTask}>Add todo</button>
-  </div>
-  <div className="todoList">
-    {todo.map((task:ITask , key:number) => {
-    return <TodoTask key={key} task={task} completedTask={completedTask} />
-    })}
-  </div>
-    </div>
+    </BrowserRouter>  
   );
 }
 
