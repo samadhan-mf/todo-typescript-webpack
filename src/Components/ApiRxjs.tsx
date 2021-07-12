@@ -32,7 +32,6 @@ const getValue = () => fromFetch('https://jsonplaceholder.typicode.com/users')
             .subscribe(response =>
   response.json().then(data => setApiData(data))
 );
-
 //   const githubUsers = `https://api.github.com/users?per_page=2`;
 //   const user = ajax.getJSON(githubUsers);
 //   const subscribes = user.subscribe(

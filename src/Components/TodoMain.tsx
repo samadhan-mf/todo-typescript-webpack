@@ -30,6 +30,7 @@ setTodo(todo.filter((task) => {
 
 console.log(todo);
 
+
   return (
     <div className="App">
   <div className="header">

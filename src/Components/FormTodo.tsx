@@ -5,7 +5,6 @@ type State = {
     state = {
       text: "",
     };
-  
     // typing on RIGHT hand side of =
     onChange = (e: React.FormEvent<HTMLInputElement>): void => {
       this.setState({ text: e.currentTarget.value });
